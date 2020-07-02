@@ -47,7 +47,7 @@ plt.legend()
 plt.show()
 
 #Definición de frecuencia de muestreo:
-fm = p/T #200 puntos por periodo
+fm = p/T #80 puntos por periodo, 400 kHz
 
 # Creación de la línea temporal para toda la señal a modular:
 t = np.linspace(0, N*T, N*p)
@@ -59,8 +59,8 @@ senal = np.zeros(N*p)
 for i, b in enumerate(bits):
   senal[i*p:(i+1)*p] = (2*b-1) * seno #El término (2*b-1) hace que los 1 en bits sigan siendo 1 y los 0 pasen a -1. De esta forma, en los ceros se coloca un seno negativo y en los 1 un seno positivo.
 
-#Visualización de los primeros 6 bits modulados
-pb = 6
+#Visualización de los primeros 8 bits modulados
+pb = 8
 plt.figure()
 plt.plot(senal[0:pb*p], label='Señal modulada en BPSK')
 plt.xlabel('Puntos de muestreo (50 por bit o periodo)')
@@ -95,10 +95,9 @@ valores_BER = []
 #Gráfica antes del canal ruidoso:
 fw, PSD = signal.welch(senal, fm, nperseg=1024)
 plt.figure()
-plt.semilogy(fw, PSD, label='SNR={}'.format(SNR))
+plt.semilogy(fw, PSD)
 plt.xlabel('Frecuencia [Hz]')
 plt.ylabel('Densidad espectral de potencia [V**2/Hz]')
-plt.legend()
 plt.show()
 
 #La gráfica de densidad después del canal ruidoso está dentro del for para cada SNR.
@@ -121,7 +120,7 @@ for SNR in valores_SNR:
     Rx = senal + ruido
 
     # Visualización de los primeros cinco bits de la señal ruidosa:
-    pb = 5
+    pb = 8
     plt.figure()
     plt.plot(Rx[0:pb*p],label='Señal ruidosa. SNR={}'.format(SNR))
     plt.xlabel('Puntos de muestreo (50 por bit o periodo)')
