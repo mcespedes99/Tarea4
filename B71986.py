@@ -24,7 +24,7 @@ bits = np.genfromtxt('bits10k.csv', delimiter='\n')
 #Número de bit:
 N = len(bits)
 
-# Frecuencia de portadora:
+# Frecuencia de portadora de 5 kHz:
 f = 5000
 
 # Periodo de símbolo igual a periodo completo de onda portadora:
