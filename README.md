@@ -17,3 +17,10 @@ La onda modulada en BPSK para los primeros 8 bits se muestra en la siguiente Fig
   <br>
   Figura 2. Señal modulada en BPSK para los primeros 8 bits.
 </p>  
+
+2. Calcular la potencia promedio de la señal modulada generada.  
+Para calcular la potencia promedio, se utilizó la siguiente ecuación:  
+<p align="center">
+  <img src="https://render.githubusercontent.com/render/math?math=P(T) = \\frac{1}{2T}\\int_{-T}^{T}x^2(t) ~\\mathrm{d}t = A\\{x^2(t)\\}">  
+</p>  
+Donde el término adentro de la integral es la potencia instantánea de la señal.
