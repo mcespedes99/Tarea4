@@ -18,12 +18,14 @@ La onda modulada en BPSK para los primeros 8 bits se muestra en la siguiente Fig
   Figura 2. Señal modulada en BPSK para los primeros 8 bits.
 </p>  
 
+
 2. Calcular la potencia promedio de la señal modulada generada.  
 Para calcular la potencia promedio, se utilizó la siguiente ecuación:  
 <p align="center">
   <img src="https://render.githubusercontent.com/render/math?math=P(T) = \frac{1}{2T}\int_{-T}^{T}x^2(t) \mathrm{d}t = A\{x^2(t)\}">  
 </p>  
 Donde el término adentro de la integral es la potencia instantánea de la señal. Por ello, se calculó el cuadrado de la onda modulada <em>senal</em> y luego se creó una variable <em>Pprom</em>,la potencia promedio, que es igual a la integral de la instantánea (conseguida con el comando <em>integrate.trapz(Pinst, t)</em>) dividida entre el tiempo total de la señal modelada, que sería <em>N*T</em>. Esto representa una ligera variación con respecto a la ecuación presentada; sin embargo, se hace así al no ser una señal periódica. Finalmente, el valor obtenido para la potencia promedio fue de 0.4938. Se notó que según los puntos de muestreo <em>p</em>, el resultado variaba ligeramente.  
+
 
 3. Simular un canal ruidoso del tipo AWGN (ruido aditivo blanco gaussiano) con una relación señal a ruido (SNR) desde -2 hasta 3 dB.  
 Para comenzar este punto 3, se crearon dos variables tipo <em>array</em>: <em>valores_SNR</em> con los valores de SNR a evaluar (-2, 1, 0, 1, 2 y 3) y <em>valores_BER</em> es una variable vacía para guardar la tasa de error de bits para cada SNR, que se necesita para el punto 5 y 6. Es importante mencionar que primero se realizó el código para un único SNR y cuando ya funcionó, se indentó dentro de un <em>for</em> para ir probando los distintos valores de SNR. Ahora, como el punto 4 pedía graficar la densidad espectral de potencia de la señal antes y después del canal ruidoso, se notó que la gráfica antes del canal iba a ser única, en cambio la de después varía según el SNR (es decir, va a dentro del <em>for</em> ya mencionado). Por ello, se procedió a realizar la primera de estas gráficas antes de seguir con el punto 3. A pesar de que se hizo de esta forma en el código por facilidad de programación, en esta documentación se explicará en el orden establecido por el profesor en el enunciado.  
@@ -63,6 +65,7 @@ Esto se hace debido a que el canal ruidoso se simula como una distribución norm
   Figura 8. Señal ruidosa para un SNR de 3 dB.
 </p>  
 
+
 4. Graficar la densidad espectral de potencia de la señal con el método de Welch (SciPy), antes y después del canal ruidoso.  
 Como ya fue explicado, la gráfica de la densidad espectral de potencia antes del canal ruidoso se realizó antes de crear el <em>for</em> del punto anterior. Para ello, se utilizaron dos funciones particulares del método Welch de SciPy. La primera fue: <em>fw, PSD = signal.welch(senal, fm, nperseg=1024)</em>; y la segunda: <em>plt.semilogy(fw, PSD)</em>. El resultado obtenido se muestra a continuación:  
 <p align="center">
@@ -101,6 +104,7 @@ Dentro del <em>for</em>, se graficó de manera prácticamente idéntica la densi
   <br>
   Figura 15. Densidad espectral de potencia de la señal después del canal ruidoso. SNR=3 dB.
 </p>  
+
 
 5. Demodular y decodificar la señal y hacer un conteo de la tasa de error de bits (BER, bit error rate) para cada nivel SNR.  
 Como esta parte también se debía realizar para cada nivel SNR, está incluida dentro del <em>for</em>. Esto se consiguió de manera muy similar a la hecha en clases: se creó un vector de ceros para guardar los bits recibidos con la demodulación, mas no la Pseudo-Energía de la señal sinusoidal, lo cual explico a continuación. Como lo hizo el profesor, se realizó una decodificación por detección de energía. Se notó que esto iba a funcionar por la siguiente razón:
