@@ -23,4 +23,4 @@ Para calcular la potencia promedio, se utilizó la siguiente ecuación:
 <p align="center">
   <img src="https://render.githubusercontent.com/render/math?math=P(T) = \frac{1}{2T}\int_{-T}^{T}x^2(t) \mathrm{d}t = A\{x^2(t)\}">  
 </p>  
-Donde el término adentro de la integral es la potencia instantánea de la señal.
+Donde el término adentro de la integral es la potencia instantánea de la señal. Por ello, se calculó el cuadrado de la onda modulada <em>senal</em> y luego se creó una variable <em>Pprom</em> que es la potencia promedio.
