@@ -119,7 +119,7 @@ for SNR in valores_SNR:
     # Simulación del canal ruidoso de tipo AWGN:
     Rx = senal + ruido
 
-    # Visualización de los primeros cinco bits de la señal ruidosa:
+    # Visualización de los primeros ocho bits de la señal ruidosa:
     pb = 8
     plt.figure()
     plt.plot(Rx[0:pb*p],label='Señal ruidosa. SNR={}'.format(SNR))
