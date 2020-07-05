@@ -143,9 +143,6 @@ for SNR in valores_SNR:
     '''
     5. Demodular y decodificar la señal y hacer un conteo de la tasa de error de bits (BER, bit error rate) para cada nivel SNR.
     '''
-    # Pseudo-energía de la onda original (esta es suma, no integral)
-    Es = np.sum(seno**2)
-
     # Inicialización del vector de bits recibidos
     bitsRx = np.zeros(bits.shape)
 

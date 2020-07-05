@@ -70,7 +70,7 @@ Como ya fue explicado, la gráfica de la densidad espectral de potencia antes de
   <br>
   Figura 9. Densidad espectral de potencia de la señal antes del canal ruidoso.
 </p>  
-Dentro del <em>for</em>, se graficó de manera prácticamente idéntica la densidad espectral de la señal pero después del canal ruidoso. Para ello, en las funciones del método Welch se cambió <em>senal</em> por <em>Rx</em>. Los resultados para cada SNR se muestran a continuación:
+Dentro del <em>for</em>, se graficó de manera prácticamente idéntica la densidad espectral de la señal pero después del canal ruidoso. Para ello, en las funciones del método Welch se cambió <em>senal</em> por <em>Rx</em>. Los resultados para cada SNR se muestran en las siguientes Figuras. Es importante recalcar que aunque la densidad se vea más <em>plana</em> desde la fundamental para la señal después del canal ruidoso en comparación con la original, la magnitud de la potencia de los armónicos es mucho menor en la original (la mayoría entre 10^(-7) hasta 10^(-11)) que en la ruidosa (cerca de 10^(-5)); de esta forma, queda en evidencia cómo el ruido incrementa la potencia de los armónicos de la señal original, tal y como se esperaba.  
 <p align="center">
   <img src="Imagenes/Densidad_ruidosa_SNR-2.png"/>
   <br>
@@ -101,3 +101,19 @@ Dentro del <em>for</em>, se graficó de manera prácticamente idéntica la densi
   <br>
   Figura 15. Densidad espectral de potencia de la señal después del canal ruidoso. SNR=3 dB.
 </p>  
+
+5. Demodular y decodificar la señal y hacer un conteo de la tasa de error de bits (BER, bit error rate) para cada nivel SNR.  
+Como esta parte también se debía realizar para cada nivel SNR, está incluida dentro del <em>for</em>. Esto se consiguió de manera muy similar a la hecha en clases: se creó un vector de ceros para guardar los bits recibidos con la demodulación, mas no la Pseudo-Energía de la señal sinusoidal, lo cual explico a continuación. Como lo hizo el profesor, se realizó una decodificación por detección de energía. Se notó que esto iba a funcionar por la siguiente razón:
+-Si se multiplica la señal sinusoidal portadora utilizada (<em>seno</em>) por un periodo de la modulada que correspondiera a la representación de un bit 1 (es decir, un periodo de una sinusoidal) la energía debería dar positiva.  
+-Por otro lado, si se multiplica la señal sinusoidal portadora (<em>seno</em>) por un periodo de la modulada que correspondiera a la representación de un bit 0 (un periodo del negativo de la sinusoidal) la energía debería dar negativa.  
+Por ello, en vez de comparar la multiplicación para cada periodo de la señal modulada con la mitad de la pseudo-energía (como se hizo en clases para modulación OOK), se comparó con cero para saber si el resultado es positivo (indicando un 1) o negativo (indicando un 0).  
+Posteriomente, se calculó la cantidad de errores con el comando <em>err = np.sum(np.abs(bits - bitsRx))</em> y la tasa de error de bits (BER) como <em>BER = err/N</em>; que es igual a como se hizo en clases. Además, dicho BER para cada SNR se guardó en la variable creada afuera del <em>for</em> para este propósito (mencionada en el punto 3): <em>valores_BER</em>. Se imprimieron la cantidad de errores y el BER para cada SNR y se obtuvo un valor de 0 errores (por ende, un BER de cero) en todos los casos. De esta forma, queda en evidencia que la demodulación creada es muy efectiva.  
+
+5. Graficar BER versus SNR.  
+Para esta parte, ya se tenía un array con tanto los valores del BER (<em>valores_BER</em>) como una con los  valores de SNR (<em>valores_SNR</em>). Por ende, sólo se tuvo que graficar con ayuda de Matplotlib. El resultado obtenido se muestra a continuación:
+<p align="center">
+  <img src="Imagenes/SNR_BER.png"/>
+  <br>
+  Figura 16. BER versus SNR.
+</p>  
+De esta forma, se logran completar todos los puntos de la tarea de manera exitosa, dando por finalizada la asignación.
